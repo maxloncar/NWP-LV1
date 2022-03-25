@@ -49,6 +49,18 @@ class UpraviteljPodacima {
         $oibi = [];
 
         $stranica = $this->htmlParser->load($podaci);
+
+        //dohvacanje OIB-a
+        foreach($stranica->find('img') as $slika) {
+            //trazenje rijeci logos unutar varijable $slika
+            if (strpos($slika, "logos") !== false) {
+                //dodavanje vrijednosti u polje $oibi
+                //pre_replace sve znamenke koje nisu brojevi mijenja praznim stringom unutar atributa
+                //src koji se nalazi u varijabli $slika
+                array_push($oibi, preg_replace('/[^0-9]/', '', $slika->src));
+            }
+        }
+
         //dohvacanje naslova i linkova
         foreach($stranica->find('article') as $clanak) {          
             foreach($clanak->find('ul.slides img') as $slika) {
@@ -62,16 +74,7 @@ class UpraviteljPodacima {
         //dohvacanje tekstova
         $tekstovi = $this->dohvatiTekstove($linkovi);
 
-        //dohvacanje OIB-a
-        foreach($stranica->find('img') as $slika) {
-            //trazenje rijeci logos unutar varijable $slika
-            if (strpos($slika, "logos") !== false) {
-                //dodavanje vrijednosti u polje $oibi
-                //pre_replace sve znamenke koje nisu brojevi mijenja praznim stringom unutar atributa
-                //src koji se nalazi u varijabli $slika
-                array_push($oibi, preg_replace('/[^0-9]/', '', $slika->src));
-            }
-        }
+        
         //vracanje polja sa svim parametrima
         return array($naslovi, $tekstovi, $linkovi, $oibi);
     }
