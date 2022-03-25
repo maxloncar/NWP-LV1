@@ -45,7 +45,7 @@ class DiplomskiRadovi implements iRadovi {
         $oib_povezivanja = $this->oib_tvrtke;
 
         //umetanje u bazu podataka
-        $upit = "INSERT INTO `diplomski_radovi` (`id_rada`, `naziv_rada`, `tekst_rada`, `link_rada`, `oib_rada`) VALUES ('$id_povezivanja', '$naziv_povezivanja', '$tekst_povezivanja', '$link_povezivanja', '$oib_povezivanja')";
+        $upit = "INSERT INTO `diplomski_radovi` (`id_rada`, `naziv_rada`, `tekst_rada`, `link_rada`, `oib_tvrtke`) VALUES ('$id_povezivanja', '$naziv_povezivanja', '$tekst_povezivanja', '$link_povezivanja', '$oib_povezivanja')";
 
         //ako umetanje nije uspjesno
         if(!$povezivanje->query($upit)) {
